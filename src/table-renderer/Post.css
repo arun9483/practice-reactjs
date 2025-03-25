@@ -5,18 +5,20 @@
   flex-direction: column;
 }
 
-/* Base styles */
+/* Base table layout */
 table {
   width: 100%;
   border-collapse: collapse;
   border: 2px solid var(--border-color);
+  table-layout: fixed; /* Ensure columns remain consistent */
 }
 
 th, td {
   padding: 10px;
   text-align: left;
-  border-bottom: 1px solid var(--border-color);
-  text-transform: capitalize;
+  overflow: hidden;
+  text-overflow: ellipsis; /* Prevent overflowing text */
+  white-space: nowrap; /* Keep content in a single line */
 }
 
 thead {
@@ -38,6 +40,26 @@ tbody tr:nth-child(odd) {
 tbody tr:hover {
   background-color: var(--row-hover-bg-color);
   cursor: pointer;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+  table {
+    display: block; /* Make the table responsive */
+    overflow-x: auto;
+    white-space: nowrap; /* Horizontal scroll for smaller screens */
+  }
+  th, td {
+    font-size: 12px; /* Reduce font size */
+  }
+}
+
+/* Media query for very small screens */
+@media (max-width: 480px) {
+  th, td {
+    padding: 8px; /* Adjust spacing */
+    font-size: 10px;
+  }
 }
 
 /* Light theme */

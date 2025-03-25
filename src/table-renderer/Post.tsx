@@ -1,4 +1,4 @@
-import { useMemo, useReducer, useState } from 'react';
+import { useMemo, useReducer, useState, useEffect, FC, useRef } from 'react';
 import { posts as data, Post } from './post-data';
 import './Post.css';
 
@@ -15,6 +15,24 @@ const postReducer = (posts: Post[], action: PostAction) => {
     default:
       return posts;
   }
+};
+
+const TruncatedCell: FC<{text:string}> = ({ text }) => {
+  const cellRef = useRef(null);
+  const [isTruncated, setIsTruncated] = useState(false);
+
+  useEffect(() => {
+    if (cellRef.current) {
+      const { scrollWidth, clientWidth } = cellRef.current;
+      setIsTruncated(scrollWidth > clientWidth); // Check if the content is truncated
+    }
+  }, [text]);
+
+  return (
+    <td ref={cellRef} title={isTruncated ? text : ''} >
+      {text}
+    </td>
+  );
 };
 
 const PostComponent = () => {
@@ -46,6 +64,13 @@ const PostComponent = () => {
         <button onClick={() => dispatch({ type: 'RESTORE_POSTS' })}>restore</button>
       </div>
       <table>
+      <colgroup>
+        <col style={{ width: "10%" }} /> {/* User ID */}
+        <col style={{ width: "10%" }} /> {/* ID */}
+        <col style={{ width: "30%" }} /> {/* Title */}
+        <col style={{ width: "40%" }} /> {/* Body */}
+        <col style={{ width: "10%" }} /> {/* Action */}
+      </colgroup>
         <thead>
           <tr>
             <th>userId</th>
@@ -61,8 +86,8 @@ const PostComponent = () => {
               <tr key={post.id}>
                 <td>{post.userId}</td>
                 <td>{post.id}</td>
-                <td>{post.title}</td>
-                <td>{post.body}</td>
+                <TruncatedCell text={post.title} />
+                <TruncatedCell text={post.body} />
                 <td>
                   <button onClick={() => dispatch({ type: 'DELETE_POST', id: post.id })}>delete</button>
                 </td>
