@@ -1,0 +1,63 @@
+/* Post.css */
+
+.post-container {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Base styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 2px solid var(--border-color);
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+  text-transform: capitalize;
+}
+
+thead {
+  background-color: var(--header-bg-color);
+}
+
+tbody tr {
+  transition: background-color 0.3s ease;
+}
+
+tbody tr:nth-child(even) {
+  background-color: var(--row-even-bg-color);
+}
+
+tbody tr:nth-child(odd) {
+  background-color: var(--row-odd-bg-color);
+}
+
+tbody tr:hover {
+  background-color: var(--row-hover-bg-color);
+  cursor: pointer;
+}
+
+/* Light theme */
+@media (prefers-color-scheme: light) {
+  :root {
+    --header-bg-color: #f4f4f4;
+    --row-even-bg-color: #f9f9f9;
+    --row-odd-bg-color: #ffffff;
+    --row-hover-bg-color: #eef;
+    --border-color: #ddd;
+  }
+}
+
+/* Dark theme */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --header-bg-color: #444;
+    --row-even-bg-color: #333;
+    --row-odd-bg-color: #222;
+    --row-hover-bg-color: #555;
+    --border-color: #666;
+  }
+}
