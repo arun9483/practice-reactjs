@@ -1,0 +1,58 @@
+.expense-table {
+  position: relative;
+  width: 100%;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 2px solid var(--table-border-color);
+}
+
+thead {
+  background-color: var(--table-header-background-color);
+  font-weight: bold;
+}
+
+th,
+td {
+  padding: 4px;
+  text-align: left;
+}
+
+tbody tr {
+  transition: background-color 0.5s ease-in-out;
+}
+
+tbody tr:nth-child(even) {
+  background-color: var(--row-even-background-color);
+}
+
+tbody tr:nth-child(odd) {
+  background-color: var(--row-odd-background-color);
+}
+
+tbody tr:hover {
+  background-color: var(--row-hover-background-color);
+  cursor: pointer;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --table-header-background-color: #444444;
+    --row-even-background-color: #333333;
+    --row-odd-background-color: #222222;
+    --row-hover-background-color: #555555;
+    --table-border-color: #666666;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --table-header-background-color: #f4f4f4;
+    --row-even-background-color: #f9f9f9;
+    --row-odd-background-color: #ffffff;
+    --row-hover-background-color: #eeeeee;
+    --table-border-color: #dddddd;
+  }
+}
