@@ -16,7 +16,10 @@ const LazyExpenseTrackerContainer = lazy(() => import('./day-02-expense-tracker/
 // module = 5
 const LazyThemeSwitcherContainer = lazy(() => import('./day-03-theme-switcher/ThemeSwitcherContainer'));
 
-const module = 5;
+// module = 6
+const LazyShoppingCartContainer = lazy(() => import('./day-04-shopping-cart/ShoppingCartContainer'));
+
+const module = 6;
 function App() {
   return (
     <>
@@ -26,6 +29,7 @@ function App() {
       {module === 3 && <LazyCounter />}
       {module === 4 && <LazyExpenseTrackerContainer />}
       {module === 5 && <LazyThemeSwitcherContainer />}
+      {module === 6 && <LazyShoppingCartContainer />}
     </>
   );
 }
