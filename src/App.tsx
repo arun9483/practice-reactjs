@@ -1,35 +1,68 @@
-import { lazy } from 'react';
+import { lazy, Suspense } from 'react';
+import { Routes, Route } from 'react-router';
+
 import './App.css';
+import CommonNav from './CommonNav';
+import HomePage from './HomePage';
 
-// module = 1
-const LazyTodos = lazy(() => import('./todos'));
-
-// module = 2
-const LazyPosts = lazy(() => import('./table-renderer/Post'));
-
-// module = 3
+// day:01
 const LazyCounter = lazy(() => import('./counter-with-history/counter-container'));
 
-// module = 4
+// day:02
 const LazyExpenseTrackerContainer = lazy(() => import('./day-02-expense-tracker/ExpenseTrackerContainer'));
 
-// module = 5
+// day:03
 const LazyThemeSwitcherContainer = lazy(() => import('./day-03-theme-switcher/ThemeSwitcherContainer'));
 
-// module = 6
+// day:04
 const LazyShoppingCartContainer = lazy(() => import('./day-04-shopping-cart/ShoppingCartContainer'));
 
-const module = 6;
 function App() {
   return (
     <>
-      <h1>Home page</h1>
-      {module === 1 && <LazyTodos />}
-      {module === 2 && <LazyPosts />}
-      {module === 3 && <LazyCounter />}
-      {module === 4 && <LazyExpenseTrackerContainer />}
-      {module === 5 && <LazyThemeSwitcherContainer />}
-      {module === 6 && <LazyShoppingCartContainer />}
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route
+          path="/day-01-counter"
+          element={
+            <Suspense fallback={<div>Loading...</div>}>
+              <CommonNav>
+                <LazyCounter />
+              </CommonNav>
+            </Suspense>
+          }
+        />
+        <Route
+          path="/day-02-expense-tracker"
+          element={
+            <Suspense fallback={<div>Loading...</div>}>
+              <CommonNav>
+                <LazyExpenseTrackerContainer />
+              </CommonNav>
+            </Suspense>
+          }
+        />
+        <Route
+          path="/day-03-theme-switcher"
+          element={
+            <Suspense fallback={<div>Loading...</div>}>
+              <CommonNav>
+                <LazyThemeSwitcherContainer />
+              </CommonNav>
+            </Suspense>
+          }
+        />
+        <Route
+          path="/day-04-shopping-cart"
+          element={
+            <Suspense fallback={<div>Loading...</div>}>
+              <CommonNav>
+                <LazyShoppingCartContainer />
+              </CommonNav>
+            </Suspense>
+          }
+        />
+      </Routes>
     </>
   );
 }
