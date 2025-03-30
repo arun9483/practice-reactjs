@@ -1,0 +1,1 @@
+:root{--light-background-color: white;--light-color: black;--dark-background-color: black;--dark-color: white}body{background-color:var(--light-background-color);color:var(--light-color)}body.dark{background-color:var(--dark-background-color);color:var(--dark-color)}
