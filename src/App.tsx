@@ -17,6 +17,9 @@ const LazyThemeSwitcherContainer = lazy(() => import('./day-03-theme-switcher/Th
 // day:04
 const LazyShoppingCartContainer = lazy(() => import('./day-04-shopping-cart/ShoppingCartContainer'));
 
+// day:05
+const LazyNotificationSystemContainer = lazy(() => import('./day-05-notification-system/NotificationSystemContainer'));
+
 function App() {
   return (
     <>
@@ -58,6 +61,16 @@ function App() {
             <Suspense fallback={<div>Loading...</div>}>
               <CommonNav>
                 <LazyShoppingCartContainer />
+              </CommonNav>
+            </Suspense>
+          }
+        />
+        <Route
+          path="/day-05-notification-system"
+          element={
+            <Suspense fallback={<div>Loading...</div>}>
+              <CommonNav>
+                <LazyNotificationSystemContainer />
               </CommonNav>
             </Suspense>
           }

@@ -17,6 +17,9 @@ function HomePage() {
         <li>
           <Link to="/day-04-shopping-cart">Day 04: Shopping Cart</Link>
         </li>
+        <li>
+          <Link to="/day-05-notification-system">Day 05: Notification System</Link>
+        </li>
       </ul>
     </div>
   );
