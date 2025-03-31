@@ -11,11 +11,13 @@ const RecommendedProducts = () => {
       <ol>
         {products.map((product) => {
           return (
-            <li key={product.id}>
-              {product.name} | {product.price}{' '}
+            <li key={product.id} style={{display: "flex", justifyContent: "space-between", margin: "10px"}}>
+              <span>
+                {product.name} | &#8377;{product.price}{' '}
+              </span>
               <button
                 onClick={() => {
-                  addProduct({ ...product, quantity: 1 });
+                  addProduct(product);
                 }}
               >add to cart</button>
             </li>

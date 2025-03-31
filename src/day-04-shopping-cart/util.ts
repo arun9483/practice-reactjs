@@ -1,5 +1,5 @@
-import { faker } from "@faker-js/faker";
-import { ShoppingCartProduct } from "./shoppingCartProductReducer";
+import { faker } from '@faker-js/faker';
+import { Product } from './shoppingCartProductReducer';
 
 export function getRandomNumberBetween(a: number, b: number) {
   if (a > b) {
@@ -8,10 +8,10 @@ export function getRandomNumberBetween(a: number, b: number) {
   return Math.floor(Math.random() * (b - a + 1)) + a;
 }
 
-export function generateMockProducts(count: number): Omit<ShoppingCartProduct, 'quantity'>[] {
+export function generateMockProducts(count: number): Product[] {
   return Array.from({ length: count }, () => ({
     id: faker.string.uuid(),
     name: faker.commerce.productName(),
     price: parseFloat(faker.commerce.price()),
   }));
-};
+}

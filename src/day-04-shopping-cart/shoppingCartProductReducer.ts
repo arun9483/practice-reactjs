@@ -1,48 +1,51 @@
-import { nanoid } from 'nanoid';
+import { generateMockProducts } from './util';
 
-export interface ShoppingCartProduct {
+export interface Product {
   id: string;
   name: string;
   price: number;
+}
+
+export interface ShoppingCartProduct extends Product {
   quantity: number;
 }
 
-export const initialState: ShoppingCartProduct[] = [
-  { id: nanoid(), name: 'Laptop', price: 1200, quantity: 1 },
-  { id: nanoid(), name: 'Headphones', price: 150, quantity: 2 },
-];
+export const initialState: ShoppingCartProduct[] = generateMockProducts(3).map((p) => ({ ...p, quantity: 1 }));
 
-type Action = { type: 'ADD_PRODUCT'; payload: ShoppingCartProduct } | { type: 'REMOVE_PRODUCT'; id: string } | { type: 'UPDATE_QUANTITY_BY'; id: string; quantity: number };
+type Action = { type: 'ADD_PRODUCT'; payload: Product } | { type: 'REMOVE_PRODUCT'; id: string } | { type: 'UPDATE_QUANTITY'; id: string; quantity: number };
 
 export const shoppingCartProductReducer = (state: ShoppingCartProduct[], action: Action) => {
   let product: ShoppingCartProduct | undefined = undefined;
   switch (action.type) {
     case 'ADD_PRODUCT':
-      return [...state, { ...action.payload }];
+      product = state.find((p) => p.id === action.payload.id);
+      if (product) {
+        return state.map((p) => {
+          if (action.payload.id === p.id) {
+            return {
+              ...p,
+              quantity: p.quantity + 1,
+            };
+          } else {
+            return p;
+          }
+        });
+      } else {
+        return [...state, { ...action.payload, quantity: 1 }];
+      }
     case 'REMOVE_PRODUCT':
       return state.filter((p) => p.id !== action.id);
-    case 'UPDATE_QUANTITY_BY':
-      product = state.find((p) => p.id === action.id);
-      if (product) {
-        if (action.quantity < 0 && product.quantity - action.quantity <= 0) {
-          // update quantity is less than or equal to zero so remove item;
-          return state.filter((p) => p.id !== action.id);
+    case 'UPDATE_QUANTITY':
+      return state.map((p) => {
+        if (p.id === action.id) {
+          return {
+            ...p,
+            quantity: action.quantity > 0 ? action.quantity : p.quantity,
+          };
         } else {
-          return state.map((p) => {
-            if (p.id === action.id) {
-              return {
-                ...p,
-                quantity: p.quantity + action.quantity,
-              };
-            } else {
-              return p;
-            }
-          });
+          return p;
         }
-      } else {
-        console.error(`product with id ${action.id} not found`);
-        return state;
-      }
+      });
     default:
       return state;
   }

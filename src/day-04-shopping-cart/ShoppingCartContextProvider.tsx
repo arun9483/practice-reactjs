@@ -1,6 +1,6 @@
 import { FC, useCallback, useMemo, useReducer } from 'react';
 import { ShoppingCartContext } from './ShoppingCartContext';
-import { shoppingCartProductReducer, initialState, ShoppingCartProduct } from './shoppingCartProductReducer';
+import { shoppingCartProductReducer, initialState, Product } from './shoppingCartProductReducer';
 
 interface ShoppingCartContextProviderProps {
   children: React.ReactNode;
@@ -8,7 +8,7 @@ interface ShoppingCartContextProviderProps {
 
 const ShoppingCartContextProvider: FC<ShoppingCartContextProviderProps> = ({ children }) => {
   const [products, dispatch] = useReducer(shoppingCartProductReducer, initialState);
-  const addProduct = useCallback((payload: ShoppingCartProduct) => {
+  const addProduct = useCallback((payload: Product) => {
     dispatch({ type: 'ADD_PRODUCT', payload });
   }, []);
 
@@ -16,12 +16,12 @@ const ShoppingCartContextProvider: FC<ShoppingCartContextProviderProps> = ({ chi
     dispatch({ type: 'REMOVE_PRODUCT', id });
   }, []);
 
-  const updateProductQuantityBy = useCallback((id: string, quantity: number) => {
-    dispatch({ type: 'UPDATE_QUANTITY_BY', id, quantity });
+  const updateProductQuantity = useCallback((id: string, quantity: number) => {
+    dispatch({ type: 'UPDATE_QUANTITY', id, quantity });
   }, []);
 
   const total = useMemo(() => {
-    return products.reduce((acc, p) => p.price*p.quantity + acc, 0);
+    return products.reduce((acc, p) => p.price * p.quantity + acc, 0);
   }, [products]);
 
   return (
@@ -30,7 +30,7 @@ const ShoppingCartContextProvider: FC<ShoppingCartContextProviderProps> = ({ chi
         products,
         addProduct,
         removeProduct,
-        updateProductQuantityBy,
+        updateProductQuantity,
         total,
       }}
     >

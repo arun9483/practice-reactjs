@@ -1,23 +1,23 @@
 import { createContext } from 'react';
-import { ShoppingCartProduct } from './shoppingCartProductReducer';
+import { Product, ShoppingCartProduct } from './shoppingCartProductReducer';
 
 export interface ShoppingCartContextType {
   products: ShoppingCartProduct[];
-  addProduct: (product: ShoppingCartProduct) => void;
+  addProduct: (product: Product) => void;
   removeProduct: (id: string) => void;
-  updateProductQuantityBy: (id: string, quantity: number) => void;
+  updateProductQuantity: (id: string, quantity: number) => void;
   total: number;
 }
 
 const defaultContextValue: ShoppingCartContextType = {
   products: [],
-  addProduct: (product: ShoppingCartProduct) => {
+  addProduct: (product: Product) => {
     console.log(product);
   },
   removeProduct: (id: string) => {
     console.log(id);
   },
-  updateProductQuantityBy: (id: string, quantity: number) => {
+  updateProductQuantity: (id: string, quantity: number) => {
     console.log(`product id${id}, quantity ${quantity}`);
   },
   total: 0,
