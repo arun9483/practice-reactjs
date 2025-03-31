@@ -8,7 +8,7 @@ const ShoppingCart = () => {
   return (
     <div className="shopping-cart">
       <div className="shopping-cart-grand-total">
-        <span style={{fontWeight: "bold", fontSize: "1.1rem"}}>Grand Total: &#8377;{total.toFixed(2)}</span>
+        <span style={{ fontWeight: 'bold', fontSize: '1.1rem' }}>Grand Total: &#8377;{total.toFixed(2)}</span>
       </div>
       <table>
         <thead>
@@ -28,10 +28,10 @@ const ShoppingCart = () => {
                 <td>{name}</td>
                 <td>{price}</td>
                 <td>{quantity}</td>
-                <td>{price * quantity}</td>
+                <td>{(price * quantity).toFixed(2)}</td>
                 <td>
                   <div className="actions">
-                    <button onClick={() => updateProductQuantity(id, quantity-1)} disabled={quantity == 1}>
+                    <button onClick={() => updateProductQuantity(id, quantity - 1)} disabled={quantity == 1}>
                       -
                     </button>
                     <input
@@ -48,7 +48,7 @@ const ShoppingCart = () => {
                         }
                       }}
                     />
-                    <button onClick={() => updateProductQuantity(id, quantity+1)}>+</button>
+                    <button onClick={() => updateProductQuantity(id, quantity + 1)}>+</button>
                     <button onClick={() => removeProduct(id)}>remove</button>
                   </div>
                 </td>
