@@ -27,7 +27,7 @@ const NotificationSystemProvider = ({ children, position = 'top-right' }: Notifi
         removeNotification,
       }}
     >
-      <div className={`notifications-container ${position}`}>
+      <div className={`notifications-provider ${position}`}>
         {notifications.map((notification) => {
           return <NotificationComponent notification={notification} />;
         })}
