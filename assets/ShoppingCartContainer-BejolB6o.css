@@ -1,0 +1,1 @@
+.shopping-cart{display:flex;flex-direction:column;align-items:flex-end}.shopping-cart table{border-collapse:collapse;border:2px solid black}.shopping-cart tr{border:1px solid black}.shopping-cart th{background-color:#dcdcdc}.shopping-cart th,td{text-align:left;padding:10px;text-transform:capitalize}.actions{min-width:400px;display:flex;justify-content:space-around}
