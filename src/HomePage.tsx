@@ -20,6 +20,9 @@ function HomePage() {
         <li>
           <Link to="/day-05-notification-system">Day 05: Notification System</Link>
         </li>
+        <li>
+          <Link to="/day-06-tab-management">Day 06: Tab Management</Link>
+        </li>
       </ul>
     </div>
   );

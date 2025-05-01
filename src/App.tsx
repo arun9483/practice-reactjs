@@ -20,6 +20,9 @@ const LazyShoppingCartContainer = lazy(() => import('./day-04-shopping-cart/Shop
 // day:05
 const LazyNotificationSystemContainer = lazy(() => import('./day-05-notification-system/NotificationSystemContainer'));
 
+// day:05
+const LazyTabManagementContainer = lazy(() => import('./day-06-tab-management'));
+
 function App() {
   return (
     <>
@@ -71,6 +74,16 @@ function App() {
             <Suspense fallback={<div>Loading...</div>}>
               <CommonNav>
                 <LazyNotificationSystemContainer />
+              </CommonNav>
+            </Suspense>
+          }
+        />
+        <Route
+          path="/day-06-tab-management"
+          element={
+            <Suspense fallback={<div>Loading...</div>}>
+              <CommonNav>
+                <LazyTabManagementContainer />
               </CommonNav>
             </Suspense>
           }
