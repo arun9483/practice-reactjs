@@ -1,29 +1,22 @@
-import { faker } from '@faker-js/faker';
-
 export interface Tab {
   title: string;
   id: string;
 }
 
-export interface TabsManager {
-  tabs: Tab[];
+export interface TabsManager<T extends Tab> {
+  tabs: T[];
   activeTabId: string | null;
 }
 
-export const initialState: TabsManager = {
-  tabs: [],
-  activeTabId: null,
-};
+export type Action<T extends Tab> =
+  | { action: 'OPEN_TAB'; payload: { newTab: T } }
+  | { action: 'CLOSE_TAB'; payload: { tabId: string } }
+  | { action: 'SWITCH_TO_TAB'; payload: { activeTabId: string } };
 
-export type Action = { action: 'OPEN_TAB' } | { action: 'CLOSE_TAB'; payload: { tabId: string } } | { action: 'SWITCH_TO_TAB'; payload: { activeTabId: string } };
-
-export function tabsManagerReducer(state: TabsManager, action: Action): TabsManager {
+export function tabsManagerReducer<T extends Tab>(state: TabsManager<T>, action: Action<T>): TabsManager<T> {
   switch (action.action) {
     case 'OPEN_TAB': {
-      const newTab = {
-        id: faker.string.uuid(),
-        title: faker.lorem.sentence(),
-      };
+      const newTab = action.payload.newTab;
       return {
         ...state,
         tabs: [...state.tabs, newTab],

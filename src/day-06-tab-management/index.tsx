@@ -1,32 +1,28 @@
-import { useState } from 'react';
-import TabManagementWindow from './TabManagementWindow';
-import './index.css';
-const TabManagementContainer = () => {
-  const [isWindowOpened, setIsWindowOpened] = useState<boolean>(false);
-  return (
-    <div className="tab-management-container">
-      {isWindowOpened ? (
-        <TabManagementWindow
-          closeWindowHandler={() => {
-            setIsWindowOpened(false);
-          }}
-        />
-      ) : (
-        <div className="empty-container">
-          No windows are open at the moment.{' '}
-          <button
-            onClick={() => {
-              console.log('open new window');
-              setIsWindowOpened(true);
-            }}
-          >
-            click me!
-          </button>{' '}
-          to open a new one!
-        </div>
-      )}
-    </div>
-  );
+import { faker } from '@faker-js/faker';
+
+import TabManagementContainer from './TabManagementContainer';
+import { TabsManager } from './tabsManagerReducer';
+import PostRenderer, { Post } from './PostRenderer';
+
+// Function to generate a new Post dynamically
+const generateNewPost = (): Post => {
+  const MIN = 1;
+  const MAX = 3
+  const wordCount = Math.floor(Math.random() * (MAX - MIN + 1)) + MIN; // Random number between MIN and MAX
+  return {
+    id: faker.string.uuid(),
+    title: faker.lorem.words(wordCount),
+    content: faker.lorem.paragraph(),
+  };
 };
 
-export default TabManagementContainer;
+const initialState: TabsManager<Post> = {
+  tabs: Array.from({ length: 3 }, () => generateNewPost()),
+  activeTabId: null,
+};
+
+const TabManagementConsumer = () => {
+  return <TabManagementContainer<Post> initialState={initialState} renderTabContent={PostRenderer} newTabHandler={generateNewPost} />;
+};
+
+export default TabManagementConsumer;
