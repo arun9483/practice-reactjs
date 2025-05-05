@@ -11,7 +11,7 @@ interface GlobalModelProps {
 }
 
 const GlobalModel = ({ onCloseHandler, showCloseIcon = true, headRenderer, contentRenderer, footerRenderer }: GlobalModelProps) => {
-  const {isOpen, hideModel} = useGlobalModel();
+  const { isOpen, hideModel } = useGlobalModel();
 
   useEffect(() => {
     if (isOpen) {
@@ -41,7 +41,9 @@ const GlobalModel = ({ onCloseHandler, showCloseIcon = true, headRenderer, conte
         {showCloseIcon && (
           <div
             className="global-model__close"
-            aria-label="close-icon"
+            role="button"
+            tabIndex={0}
+            aria-label="Close modal"
             onClick={() => {
               hideModel();
               if (onCloseHandler) onCloseHandler();
