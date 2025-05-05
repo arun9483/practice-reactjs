@@ -23,6 +23,9 @@ function HomePage() {
         <li>
           <Link to="/day-06-tab-management">Day 06: Tab Management</Link>
         </li>
+        <li>
+          <Link to="/day-07-global-model-management">Day 07: Global Model Management</Link>
+        </li>
       </ul>
     </div>
   );
